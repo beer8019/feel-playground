@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FEEL Playground · Try out and learn DMN FEEL</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive app to try out and learn and evaluate the DMN FEEL language, including expressions, unary tests and built-in functions.">
+  <meta name="theme-color" content="#4682b4">
+
+  <link rel="icon" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="bundle.css">
+</head>
+<body>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+
+      function triggerReload() {
+        window.location.reload();
+      }
+
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch((err) => {
+          console.warn('Failed to register service worker', err);
+        });
+
+        navigator.serviceWorker.addEventListener('message', event => {
+          if (event.data.message === 'resource.changed') {
+            console.log('Resource changed', event.data.url);
+
+            triggerReload();
+          }
+        });
+      });
+    }
+  </script>
+
+  <script src="vendor/codemirror/lib/codemirror.js"></script>
+  <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+
+  <script src="vendor/feelin/dist/feelin.umd.js"></script>
+
+  <script src="bundle.js"></script>
+
+</body>
+</html>
